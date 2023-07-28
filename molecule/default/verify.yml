@@ -1,10 +1,26 @@
 ---
-# This is an example playbook to execute Ansible tests.
-
-- name: Verify
+- name: Verify installation
   hosts: all
-  gather_facts: false
   tasks:
-    - name: Example assertion
-      ansible.builtin.assert:
-        that: true
+
+    - name: "Check that the /etc/vector/vector.toml exists"
+      stat:
+        path: '/etc/vector/vector.toml'
+      register: config_created
+
+    - name: "Fail if the /etc/vector/vector.toml not created"
+      assert:
+        that:
+          - not config_created.changed
+        fail_msg: "The /etc/vector/vector.toml repo was not created"
+        success_msg: "The /etc/vector/vector.toml repo was created"
+
+    - name: Populate service facts
+      service_facts:
+
+    - name: Assert that vector service is running
+      assert:
+        that: |
+          "'running' in ansible_facts.services['vector'].state"
+          or
+          "'running' in ansible_facts.services['vector'].state"
