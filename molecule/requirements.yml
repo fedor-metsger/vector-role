@@ -1,4 +1,4 @@
 ---
 roles:
   - name: "vector-role required"
-    src: https://github.com/fedor-metsger/vector-role.git
+    src: git@github.com:fedor-metsger/vector-role.git
