@@ -1,0 +1,21 @@
+node("linux"){
+    stage("Git checkout"){
+        git credentialsId: 'fedor', url: 'git@github.com:fedor-metsger/vector-role.git'
+    }
+    stage("Set prod_run parameter"){
+        prod_run=true
+    }
+    stage("Run playbook"){
+        if (prod_run){
+            sh 'ansible-galaxy install -r requirements.yml'
+            sh 'PATH=$PATH:/home/jenkins/.local/bin ansible-playbook -i inventory/prod.yml site.yml'
+            sh 'ansible-galaxy role remove vector-role'
+        }
+        else{
+            sh 'ansible-galaxy install -r requirements.yml'
+            sh 'PATH=$PATH:/home/jenkins/.local/bin ansible-playbook -i inventory/prod.yml site.yml --check --diff'
+            sh 'ansible-galaxy role remove vector-role'
+        }
+        
+    }
+}
