@@ -1,6 +1,6 @@
 node("linux"){
     stage("Git checkout"){
-        git credentialsId: 'fedor', url: 'git@github.com:fedor-metsger/vector-role.git'
+        git credentialsId: 'fedor-metsger-private-key', url: 'git@github.com:fedor-metsger/vector-role.git'
     }
     stage("Set prod_run parameter"){
         prod_run=true
