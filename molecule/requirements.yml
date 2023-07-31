@@ -1,0 +1,4 @@
+---
+roles:
+  - name: "hello_world_stdout"
+    src: https://github.com/fedor-metsger/vector-role
