@@ -1,4 +1,4 @@
 ---
 roles:
-  - name: "hello_world_stdout"
-    src: https://github.com/fedor-metsger/vector-role
+  - name: "vector-role required"
+    src: https://github.com/fedor-metsger/vector-role.git
